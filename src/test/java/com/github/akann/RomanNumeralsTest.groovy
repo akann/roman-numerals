@@ -4,11 +4,16 @@ package com.github.akann
  * Created by akan on 23/09/2016.
  * Tests borrowed from Oladapo Fadeyi
  */
-class RomanNumeralTest extends spock.lang.Specification {
+class RomanNumeralsTest extends spock.lang.Specification {
+    def RomanNumerals romanNumerals
+
+    def setup() {
+        romanNumerals = new RomanNumerals()
+    }
 
     def "should return roman representation"(number, roman) {
         expect:
-        roman == RomanNumeral.convert(number)
+        roman == romanNumerals.convert(number)
 
         where:
         number | roman
@@ -29,13 +34,11 @@ class RomanNumeralTest extends spock.lang.Specification {
 
     def "should return decimal"(roman, number) {
         expect:
-        number == RomanNumeral.convert(roman)
+        number == romanNumerals.convert(roman)
 
         where:
         roman    | number
-        'I'      | 1
-        'II'     | 2
-        'III'    | 3
+        'i'      | 1000
         'IV'     | 4
         'VIII'   | 8
         'XXXVI'  | 36
@@ -48,21 +51,27 @@ class RomanNumeralTest extends spock.lang.Specification {
         'MMVIII' | 2008
     }
 
-    def "should return an exception when converting 0"(){
-        when:
-        RomanNumeral.convert(0)
+    def "should return roman for highest decimals"(number, roman) {
+        expect:
+        roman  == romanNumerals.convert(number)
+        number == romanNumerals.convert(roman)
 
-        then:
-        RuntimeException ex = thrown()
-        ex.message == 'Could not find number: 0'
+        where:
+        number | roman
+        1      | 'I'
+        4      | 'IV'
+        5      | 'V'
+        9      | 'IX'
+        10     | 'X'
+        40     | 'XL'
+        50     | 'L'
+        90     | 'XC'
+        100    | 'C'
+        400    | 'CD'
+        500    | 'D'
+        900    | 'CM'
+        1000   | 'M'
     }
 
-    def "should return an exception when converting a negative number"(){
-        when:
-        RomanNumeral.convert(-42)
-
-        then:
-        thrown(RuntimeException)
-    }
 
 }
