@@ -38,7 +38,7 @@ class RomanNumeralsTest extends spock.lang.Specification {
 
         where:
         roman    | number
-        'i'      | 1000
+        'I'      | 1
         'IV'     | 4
         'VIII'   | 8
         'XXXVI'  | 36
