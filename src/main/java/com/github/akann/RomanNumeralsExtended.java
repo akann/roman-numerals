@@ -2,6 +2,9 @@ package com.github.akann;
 
 /**
  * RomanNumeral converts numbers to Roman Numerals and visa versa
+ * Numbers greater than 1,000 are formed by placing a dash over the symbol,
+ * meaning "times 1,000", but these are not commonly used:
+ * RomanNumeralsExtended implements this by using lower case
  *
  * @author  Akan Nkweini
  */
